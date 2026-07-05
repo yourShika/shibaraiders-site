@@ -1,0 +1,34 @@
+name: Mitgliederliste vom Lodestone aktualisieren
+
+on:
+  schedule:
+    - cron: '17 3 * * *'   # täglich 03:17 UTC
+  workflow_dispatch:        # manuell startbar (Tab "Actions" → "Run workflow")
+
+permissions:
+  contents: write
+
+jobs:
+  update-members:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Lodestone abrufen und members.json schreiben
+        run: node scripts/update-members.mjs
+
+      - name: Änderungen committen
+        run: |
+          if [[ -n "$(git status --porcelain members.json)" ]]; then
+            git config user.name "shiba-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add members.json
+            git commit -m "chore: Mitgliederliste aktualisiert (Lodestone)"
+            git push
+          else
+            echo "Keine Änderungen."
+          fi
