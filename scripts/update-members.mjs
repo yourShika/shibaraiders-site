@@ -3,10 +3,13 @@
 // Aufruf: node scripts/update-members.mjs
 
 import { writeFileSync, readFileSync, existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
 const FC_ID = '9279948507173621416';
 const BASE = `https://na.finalfantasyxiv.com/lodestone/freecompany/${FC_ID}/member/`;
-const OUT = new URL('../members.json', import.meta.url).pathname;
+// fileURLToPath statt .pathname: unter Windows liefert .pathname sonst
+// "/C:/..." mit prozentkodierten Leerzeichen und der Pfad wird unbrauchbar.
+const OUT = fileURLToPath(new URL('../members.json', import.meta.url));
 
 const HEADERS = {
   'User-Agent': 'Mozilla/5.0 (compatible; ShibaraidersSite/1.0; +https://github.com)',
@@ -15,6 +18,11 @@ const HEADERS = {
 
 // Twink-Accounts, die nicht in der Liste erscheinen sollen.
 const IGNORED_NAMES = new Set(['Yavi Wohtu', 'Akeno Saeki']);
+
+// Rang-Umbenennungen: Lodestone-Name -> Anzeigename auf der Website.
+// Noetig, solange der Rang ingame (bzw. auf Lodestone) noch alt heisst.
+// Sobald Lodestone den neuen Namen liefert, greift der Eintrag einfach nicht mehr.
+const RANK_ALIASES = { 'Princess': 'Shogun' };
 
 async function fetchPage(page) {
   const res = await fetch(`${BASE}?page=${page}`, { headers: HEADERS });
@@ -38,7 +46,8 @@ function parseMembers(html) {
     // Rang & Level: alle <span>-Texte im Info-Block einsammeln
     const infoBlock = block.match(/entry__freecompany__info([\s\S]*)$/)?.[1] || block;
     const spans = [...infoBlock.matchAll(/<span[^>]*>([^<]*)<\/span>/g)].map(s => s[1].trim()).filter(Boolean);
-    const rank = spans.find(s => !/^\d+$/.test(s)) || '';
+    const rawRank = spans.find(s => !/^\d+$/.test(s)) || '';
+    const rank = RANK_ALIASES[rawRank] || rawRank;
     const level = Number(spans.find(s => /^\d+$/.test(s))) || null;
 
     members.push({ id, name, rank, level, avatar });

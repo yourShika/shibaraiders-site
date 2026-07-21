@@ -18,7 +18,7 @@ Statische Website der Freien Gesellschaft **Shibaraiders** (Alpha [Light]) — g
 
 ## Ränge
 
-Die Rangbeschreibungen (Kaiser Shiba = Owner, Princess, NekoPaw, Mascot, Gokiburi) sind in `index.html` hinterlegt — unbekannte neue Ränge werden als „Mitglied" angezeigt.
+Die Rangbeschreibungen (Kaiser Shiba = Owner, Shogun, NekoPaw, Mascot, Gokiburi) sind in `index.html` hinterlegt — unbekannte neue Ränge werden als „Mitglied" angezeigt.
 
 ## Bilder
 

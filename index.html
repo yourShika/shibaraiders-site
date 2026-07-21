@@ -533,17 +533,17 @@ class Component extends DCLogic {
       { n: 3, title: t.stepInvT, text: t.stepInvX, href: '', cta: '', btnStyle: '' },
     ];
 
-    const RANK_ORDER = ['Kaiser Shiba', 'Princess', 'NekoPaw', 'Mascot', 'Gokiburi'];
+    const RANK_ORDER = ['Kaiser Shiba', 'Shogun', 'NekoPaw', 'Mascot', 'Gokiburi'];
     const roleByRank = (rank) => {
       const map = lang === 'de' ? {
         'Kaiser Shiba': 'Owner — führt das Rudel an',
-        'Princess': 'Stellvertretung',
+        'Shogun': 'Stellvertretung',
         'NekoPaw': 'Helper',
         'Mascot': 'Mitglied',
         'Gokiburi': 'Anfangsrolle — Probezeit',
       } : {
         'Kaiser Shiba': 'Owner — leads the pack',
-        'Princess': 'Second-in-command',
+        'Shogun': 'Second-in-command',
         'NekoPaw': 'Helper',
         'Mascot': 'Member',
         'Gokiburi': 'Starting rank — trial period',
@@ -554,7 +554,7 @@ class Component extends DCLogic {
 
     const fallbackMembers = [
       { id: '51140687', name: 'Akeno Kusuri-ya', rank: 'Kaiser Shiba', level: 100, avatar: '' },
-      { id: '11359811', name: 'Maomao Choi', rank: 'Princess', level: 100, avatar: '' },
+      { id: '11359811', name: 'Maomao Choi', rank: 'Shogun', level: 100, avatar: '' },
     ];
 
     const raw = this.state.liveMembers || fallbackMembers;
@@ -574,13 +574,13 @@ class Component extends DCLogic {
 
     const ranks = lang === 'de' ? [
       { name: 'Kaiser Shiba', desc: 'Owner — führt das Rudel an.' },
-      { name: 'Princess', desc: 'Direkt unter dem Owner — die rechte Pfote der Leitung.' },
+      { name: 'Shogun', desc: 'Direkt unter dem Owner — die rechte Pfote der Leitung.' },
       { name: 'NekoPaw', desc: 'Helper — unterstützt bei Orga, Events und Mitgliederfragen.' },
       { name: 'Mascot', desc: 'Mitglied — vollwertiges Rudelmitglied.' },
       { name: 'Gokiburi', desc: 'Anfangsrolle — die Probezeit für Neuankömmlinge.' },
     ] : [
       { name: 'Kaiser Shiba', desc: 'Owner — leads the pack.' },
-      { name: 'Princess', desc: 'Right below the owner — the leadership\u2019s right paw.' },
+      { name: 'Shogun', desc: 'Right below the owner — the leadership\u2019s right paw.' },
       { name: 'NekoPaw', desc: 'Helper — supports organisation, events and member questions.' },
       { name: 'Mascot', desc: 'Member — a full member of the pack.' },
       { name: 'Gokiburi', desc: 'Starting rank — the trial period for newcomers.' },
